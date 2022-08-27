@@ -21,7 +21,7 @@ nav ul li a{
     transition: 0.2s;
     display:flex;
     font-weight: 500;
-
+    white-space: nowrap !important;
 }
 
 ul li a:hover{
@@ -111,6 +111,11 @@ ul li{
     .contents{
         margin-top: 15em !important;
     }
+}
+@media (max-width: 650px) {
+.item-right{
+    overflow-x: auto;
+}
 }
 .table-responsive-xl th,.table-responsive-xl td{
     white-space: nowrap;

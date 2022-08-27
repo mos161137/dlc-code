@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\vote;
+use DB;
+use Auth;
 
 class VoteController extends Controller
 {
@@ -11,9 +14,11 @@ class VoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){$this->middleware('auth');}
     public function index()
     {
-        return view('vote.index');
+        $view['vote'] = vote::get_vote();
+        return view('vote.index',$view);
     }
 
     /**
@@ -23,7 +28,11 @@ class VoteController extends Controller
      */
     public function create()
     {
-        return view('vote.create');
+        if(Auth::user()->type==1){
+            return view('vote.create');
+        }else{
+            return redirect('');
+        }
     }
 
     /**
@@ -50,7 +59,10 @@ class VoteController extends Controller
      */
     public function show($id)
     {
-        //
+        $view['vote']           = vote::get_vote_id($id);
+        $view['vote_agree']     = vote::get_vote_point($id,1);
+        $view['vote_disagree']  = vote::get_vote_point($id,2);
+        return view('vote.show',$view);
     }
 
     /**
@@ -61,7 +73,14 @@ class VoteController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(Auth::user()->type==1){
+            $view['vote']           = vote::get_vote_id($id);
+            $view['vote_agree']     = vote::get_vote_point($id,1);
+            $view['vote_disagree']  = vote::get_vote_point($id,2);
+            return view('vote.edit',$view);
+        }else{
+            return redirect('');
+        }
     }
 
     /**
@@ -71,9 +90,18 @@ class VoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $r, $id)
     {
-        //
+        $data['vote_title']         = $r->vote_title;
+        $data['vote_detail']        = $r->vote_detail;
+        if(isset($r->vote_status)){
+            $data['vote_status']    =0;
+        }else{
+            $data['vote_status']    =1;
+        }
+        DB::table('vote')->where('vote_id',$id)->update($data);
+
+        return redirect('');
     }
 
     /**

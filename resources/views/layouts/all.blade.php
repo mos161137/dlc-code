@@ -37,9 +37,9 @@
                         <li class="nav-item">
                             <a class="nav-link pb-0 pt-0 @if(Request::segment(1) == "vote") active @endif" href="{{url('vote')}}">การลงคะแนน</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link pb-0 pt-0 @if(Request::segment(1) == "users" && Request::segment(2)!=null) active @endif" href="{{url('users')}}/{{Auth::user()->id}}">ข้อมูลผู้ใช้งาน</a>
-                        </li>
+                        </li> --}}
                         @elseif(Auth::user()->type==1)
                         <li class="nav-item">
                             <a class="nav-link pb-0 pt-0 @if(Request::segment(1) == "vote" && Request::segment(2) != "create") active @endif" href="{{url('vote')}}">สรุปการลงคะแนน</a>
@@ -47,9 +47,9 @@
                         <li class="nav-item">
                             <a class="nav-link pb-0 pt-0 @if(Request::segment(1) == "vote" && Request::segment(2) == "create") active @endif" href="{{url('vote/create')}}">สร้างโหวด</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link pb-0 pt-0 @if(Request::segment(1) == "users") active @endif" href="{{url('users')}}">ผู้ใช้งาน</a>
-                        </li>
+                        </li> --}}
                         @endif
                         <li class="nav-item">
                             <a class="nav-link pb-0 pt-0" href="{{ route('logout') }}" onclick="   event.preventDefault(); document.getElementById('logout-form').submit();">ออกจากระบบ</a>
@@ -67,13 +67,13 @@
             <div class="col-xl-2"></div>
         </div>
     </nav>
+    @yield('modal')
     <div class="contents">
-        @yield('modal')
         @yield('content')
     </div>
 
+    <script src="{{url('')}}/public/js/jquery-3.5.1.min.js"></script>
     <script src="{{url('')}}/public/bootstrap-5/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="{{url('')}}/public/bootstrap-5/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
     <script>
             $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});

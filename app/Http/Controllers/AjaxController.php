@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class AjaxController extends Controller
 {
@@ -32,9 +33,16 @@ class AjaxController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $r)
     {
-        //
+        if($r->event=='check_user'){
+            $check = DB::table('users')->where('email',$r->email)->count();
+            if($check>=1){
+                return 99;
+            }else{
+                return 11;
+            }
+        }
     }
 
     /**

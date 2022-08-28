@@ -24,7 +24,7 @@
                 <div class="row m-0 mt-5">
                     <div class="col-xl-4"></div>
                     <div class="col-xl-4">
-                        <x-jet-input id="email" class="form-control" type="text" name="email" :value="old('email')" required autofocus placeholder="User Name"/>
+                        <x-jet-input id="email" class="form-control" type="text" name="email" :value="old('email')" required autofocus placeholder="Email or Username"/>
                     </div>
                     <div class="col-xl-4"></div>
                 </div>
